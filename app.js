@@ -4,26 +4,35 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
-
 var bookRouter = require('./routes/book');
 var usersRouter = require('./routes/users');
+var authorRouter = require('./routes/author')
+var genreRouter= require('./routes/genre')
+var reviewRouter= require('./routes/review')
+var publisherRouter = require('./routes/publisher')
+
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect('mongodb://127.0.0.1:27017/newbook')
-.then(() => console.log('Connected!'));
+.then(() => console.log('Connected!'))
+.catch(error => console.log(error.message))
 
 app.use('/books', bookRouter);
 app.use('/users', usersRouter);
+app.use('/author', authorRouter)
+app.use('/genre', genreRouter)
+app.use('/review', reviewRouter)
+app.use('/publisher' , publisherRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

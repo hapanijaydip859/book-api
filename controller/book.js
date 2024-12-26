@@ -36,7 +36,7 @@ exports.Findbook = async function(req,res,next){
 
 exports.FindOnebook = async function(req,res,next){
     try {
-        let FindOneBook = await BOOKS.findById()
+        let FindOneBook = await BOOKS.findById(req.params.id)
         if(!FindOneBook){throw new Error ('not found book')}
         res.status(201).json({
             status : "success",
@@ -71,11 +71,10 @@ exports.updatebook = async function(req,res,next){
 exports.deletebook = async function(req,res,next){
     try {
         let DeleteBooks = await BOOKS.findByIdAndDelete(req.params.id)
-      
+        if(!DeleteBooks){throw new Error('not found book')}
         res.status(201).json({
             status : "success",
             message : "Book Delete" ,
-            data : DeleteBooks
         })
     } catch (error) {
         res.status(404).json({
