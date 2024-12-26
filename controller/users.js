@@ -21,6 +21,7 @@ exports.sequre = async function (req, res, next) {
 exports.Signuser = async function(req,res,next){
     try { 
         let Createuser = await USERS.create(req.body)
+        console.log(Createuser);
         res.status(201).json({
             status : "success",
             message : "user Create",
@@ -29,7 +30,7 @@ exports.Signuser = async function(req,res,next){
     } catch (error) {
         res.status(404).json({
             status : "fail",
-            message : "user Not Create "
+            message : "user not Create "
         })
     }
 }

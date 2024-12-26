@@ -16,7 +16,7 @@ exports.Createreview = async function(req,res,next){
 }
 exports.Findreview = async function(req,res,next){
     try {
-        let findreview = await REVIEW.find().populate('book user')
+        let findreview = await REVIEW.find().populate('book user responses.user')
         if(!findreview){throw new Error ('not found review')}
         res.status(201).json({
             status : "success",
@@ -64,7 +64,7 @@ exports.updatereview = async function(req,res,next){
 }
 exports.deletereview = async function(req,res,next){
     try {
-        let Deletereview = await REVIEW.findByIdAndDelete(req.params.id)``
+        let Deletereview = await REVIEW.findByIdAndDelete(req.params.id)
         res.status(201).json({
             status : "success",
             message : "review Delete" 
